@@ -1,7 +1,7 @@
 const Sauce = require("../models/sauces");
 
 exports.createSauces = (req, res, next) => {
-  const saucesObject = JSON.parse(req.body.thing);
+  const saucesObject = JSON.parse(req.body.sauce);
   delete saucesObject._id;
   const sauce = new Sauce({
     ...saucesObject,
@@ -16,15 +16,16 @@ exports.createSauces = (req, res, next) => {
 };
 
 exports.modifySauces = (req, res, next) => {
-  const saucesObject = req.file
+  const sauceObject = req.file
     ? {
-        ...JSON.parse(req.body.sauces),
+        ...JSON.parse(req.body.sauce),
         imageUrl: `${req.protocol}://${req.get("host")}/images/${
           req.file.filename
         }`,
       }
     : { ...req.body };
-  Sauce.updateOne({ _id: req.params.id }, { ...saucesObject, _id: req.params })
+  Sauce.updateOne({ _id: req.params.id, userId: sauceObject.userId },
+    { ...sauceObject })
     .then(() => res.status(200).json({ message: "Objet modifié !" }))
     .catch((error) => res.status(400).json({ error }));
 };
