@@ -37,7 +37,8 @@ app.use(bodyParser.json());
 app.use("/images", express.static(path.join(__dirname, "images")));
 
 //début des routes pour raccourcir l'écriture dans routes.js
-app.use("/api/sauces", saucesRoutes);
 app.use("/api/auth", userRoutes);
+app.use("/api/sauces", saucesRoutes);
+
 
 module.exports = app;

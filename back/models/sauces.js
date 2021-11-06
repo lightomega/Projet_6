@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 
 //models attendu par le back de la part du front
 const modelsSauce = mongoose.Schema({
-  userId: { type: String },
+  userId: { type: String, required: true },
   name: { type: String, required: true },
   manufacturer: { type: String, required: true },
   description: { type: String, required: true },

@@ -1,8 +1,8 @@
 //modules nécéssaires aux controllers
-const bcrypt = require("bcrypt");
-const jwt = require("jsonwebtoken");
 //récupération du model user
 const User = require("../models/user");
+const bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken");
 
 //controller d'inscription qui va créer un nouvel utilisateur et hasher le password si le model envoyé par le front est bien conforme au model attendu par le back
 exports.signup = (req, res, next) => {
