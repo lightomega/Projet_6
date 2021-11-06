@@ -1,11 +1,14 @@
+//modules nécéssaires au server
 const express = require("express");
-//const bodyParser = require("body-parser");
+const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 const path = require("path");
 
+//récupération des routes
 const saucesRoutes = require("./routes/sauces");
 const userRoutes = require("./routes/user");
 
+//connexion à la db
 mongoose
   .connect(
     "mongodb+srv://Alexandre:UKzRkttQ8IINTlVx@cluster0.arxda.mongodb.net/myFirstDatabase?retryWrites=true&w=majority",
@@ -29,10 +32,11 @@ app.use((req, res, next) => {
   next();
 });
 
-app.use(express.json());
+app.use(bodyParser.json());
 
 app.use("/images", express.static(path.join(__dirname, "images")));
 
+//début des routes pour raccourcir l'écriture dans routes.js
 app.use("/api/sauces", saucesRoutes);
 app.use("/api/auth", userRoutes);
 

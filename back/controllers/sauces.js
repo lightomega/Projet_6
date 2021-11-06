@@ -1,5 +1,7 @@
+//récupération du model sauces
 const Sauce = require("../models/sauces");
 
+//controller qui va créer une sauce si le model reçu par le front est conforme au model attendu par le back
 exports.createSauces = (req, res, next) => {
   const saucesObject = JSON.parse(req.body.sauce);
   delete saucesObject._id;
@@ -15,6 +17,7 @@ exports.createSauces = (req, res, next) => {
     .catch((error) => res.status(400).json({ error }));
 };
 
+//controller qui va modifier la sauce si l'id de l'user connecté est le meme que celui qui a créé la sauce
 exports.modifySauces = (req, res, next) => {
   const sauceObject = req.file
     ? {
@@ -30,18 +33,21 @@ exports.modifySauces = (req, res, next) => {
     .catch((error) => res.status(400).json({ error }));
 };
 
+//controller qui va permettre à l'utilisateur de supprimer la sauce qu'il a ajouté
 exports.deleteSauces = (req, res, next) => {
   Sauce.deleteOne({ _id: req.params.id })
     .then(() => res.status(200).json({ message: "Objet supprimé !" }))
     .catch((error) => res.status(400).json({ error }));
 };
 
+//controller qui affiche la sauce selectionnée
 exports.getOneSauces = (req, res, next) => {
   Sauce.findOne({ _id: req.params.id })
     .then((sauce) => res.status(200).json(sauce))
     .catch((error) => res.status(404).json({ error }));
 };
 
+//controller qui affiche toutes les sauces sur la page
 exports.getAllSauces = (req, res, next) => {
   Sauce.find()
     .then((sauces) => res.status(200).json(sauces))

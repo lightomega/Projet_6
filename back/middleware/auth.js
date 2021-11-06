@@ -1,5 +1,6 @@
 const jwt = require("jsonwebtoken");
 
+//middleware d'authentification qui va comparer le token attribué à l'user pour confirmer son authentification
 module.exports = (req, res, next) => {
   try {
     const token = req.headers.authorization.split(" ")[1];

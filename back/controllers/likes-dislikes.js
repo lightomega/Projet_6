@@ -1,9 +1,11 @@
 const Sauce = require("../models/sauces");
 
+//controller qui gère le systeme de like/dislike des sauces
 exports.likeDislike = (req, res) => {
     const sauce = Sauce.findByIdAndUpdate(req.params.id);
     sauce.then((s) => {
         switch (req.body.like) {
+            //premier cas, l'utilisateur aime la sauce
             case 1:
                 if (!s.usersLiked.includes(req.body.userId)) {
                     Sauce.updateOne(
@@ -23,7 +25,7 @@ exports.likeDislike = (req, res) => {
                     console.log("Avis déjà donné ! liked")
                 }
                 break;
-
+            //deuxieme cas, l'utilisateur n'aime pas la sauce
             case -1:
                 if (!s.usersDisliked.includes(req.body.userId)) {
                     Sauce.updateOne(
@@ -43,7 +45,7 @@ exports.likeDislike = (req, res) => {
                         console.log("avis déjà donné ! Disliked");
                 }
                 break;
-
+            //cas neutre, avis retiré
             case 0:
                 let update = {};
                 if (s.usersLiked.includes(req.body.userId)) {

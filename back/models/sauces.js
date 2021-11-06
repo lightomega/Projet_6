@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
 
+//models attendu par le back de la part du front
 const modelsSauce = mongoose.Schema({
   userId: { type: String },
   name: { type: String, required: true },
@@ -14,4 +15,5 @@ const modelsSauce = mongoose.Schema({
   usersDisliked: [{ type: String }],
 });
 
+//exportation du mole pour le récupérer dans le controller
 module.exports = mongoose.model("sauces", modelsSauce);

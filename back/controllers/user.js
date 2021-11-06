@@ -1,7 +1,10 @@
+//modules nécéssaires aux controllers
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
+//récupération du model user
 const User = require("../models/user");
 
+//controller d'inscription qui va créer un nouvel utilisateur et hasher le password si le model envoyé par le front est bien conforme au model attendu par le back
 exports.signup = (req, res, next) => {
   bcrypt
     .hash(req.body.password, 10)
@@ -18,6 +21,7 @@ exports.signup = (req, res, next) => {
     .catch((error) => res.status(500).json({ error }));
 };
 
+//controller de connexion qui va autoriser la connexion si l'utilisateur et le password sont corrects et bien présents dans la db
 exports.login = (req, res, next) => {
   User.findOne({ email: req.body.email })
     .then((user) => {

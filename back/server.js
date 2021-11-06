@@ -1,6 +1,7 @@
 const http = require("http");
 const app = require("./app");
 
+//configuration du port server
 const normalizePort = (val) => {
   const port = parseInt(val, 10);
 
@@ -15,6 +16,7 @@ const normalizePort = (val) => {
 const port = normalizePort(process.env.port || 3000);
 app.set("port", port);
 
+//gestion des erreurs
 const errorHandler = (error) => {
   if (error.syscall !== "listen") {
     throw error;
@@ -35,6 +37,7 @@ const errorHandler = (error) => {
   }
 };
 
+//démarrage du server
 const server = http.createServer(app);
 
 server.on("error", errorHandler);
